@@ -8,7 +8,6 @@ typedef struct No {
     struct No *direita;
 } No;
 
-// Insere um elemento na árvore
 No* inserir(No *raiz, int valor) {
     if (raiz == NULL) {
         No *novo = malloc(sizeof(No));
@@ -26,7 +25,6 @@ No* inserir(No *raiz, int valor) {
     return raiz;
 }
 
-// Busca um elemento pelo valor
 No* buscar(No *raiz, int valor) {
     if (raiz == NULL)
         return NULL;
@@ -40,7 +38,6 @@ No* buscar(No *raiz, int valor) {
     return buscar(raiz->direita, valor);
 }
 
-// Encontra o menor elemento
 No* menor(No *raiz) {
     while (raiz->esquerda != NULL)
         raiz = raiz->esquerda;
@@ -48,7 +45,6 @@ No* menor(No *raiz) {
     return raiz;
 }
 
-// Remove um elemento pelo valor
 No* remover(No *raiz, int valor) {
     if (raiz == NULL)
         return NULL;
@@ -60,27 +56,23 @@ No* remover(No *raiz, int valor) {
         raiz->direita = remover(raiz->direita, valor);
     }
     else {
-        // Sem filho
         if (raiz->esquerda == NULL && raiz->direita == NULL) {
             free(raiz);
             return NULL;
         }
 
-        // Apenas filho direito
         if (raiz->esquerda == NULL) {
             No *temp = raiz->direita;
             free(raiz);
             return temp;
         }
 
-        // Apenas filho esquerdo
         if (raiz->direita == NULL) {
             No *temp = raiz->esquerda;
             free(raiz);
             return temp;
         }
 
-        // Dois filhos: menor elemento da direita
         No *temp = menor(raiz->direita);
         raiz->valor = temp->valor;
         raiz->direita = remover(raiz->direita, temp->valor);
@@ -89,7 +81,6 @@ No* remover(No *raiz, int valor) {
     return raiz;
 }
 
-// Mostra a árvore em ordem
 void imprimir(No *raiz) {
     if (raiz != NULL) {
         imprimir(raiz->esquerda);
@@ -112,7 +103,6 @@ int main() {
     printf("Arvore: ");
     imprimir(raiz);
 
-    // Busca
     int valor = 40;
 
     if (buscar(raiz, valor) != NULL)
@@ -120,7 +110,6 @@ int main() {
     else
         printf("\n%d nao encontrado!", valor);
 
-    // Remoção
     valor = 50;
 
     if (buscar(raiz, valor) != NULL) {
